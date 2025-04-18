@@ -28,6 +28,16 @@ class ClassBookingPagination(PageNumberPagination):
     page_size = 6
 
 class FitnessClassViewSet(viewsets.ModelViewSet):
+    """ 
+    Fitness classes overview:
+    for create -
+        . Only admin and staff can create, update, and delete classes.
+        . All users can view classes.
+    features:
+        . Filter by instructor email and max capacity.
+        . Search by name, description, and instructor email.
+        . Paginate results.
+    """
     queryset = FitnessClass.objects.select_related('instructor').all()
     serializer_class = FitnessClassSerializer
     permission_classes = [IsAdminOrStaffOrReadOnly]

@@ -39,7 +39,7 @@ class AttendanceViewSet(viewsets.ModelViewSet):
         return Attendance.objects.filter(user=user).select_related('user', 'fitness_class', 'class_booking')
 
     @swagger_auto_schema(
-        operation_description="Retrieve all attendances",
+        operation_description="Retrieve all attendances . Only for staff and admin can view all attendance. Members can only view their own attendance.",
         responses={
             200: AttendanceSerializer(many=True),
             403: "Forbidden",
@@ -49,7 +49,7 @@ class AttendanceViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Create a new payment",
+        operation_description="Create a new attendance . Only for staff and admin can create attendance.",
         request_body=AttendanceSerializer,
         responses={
             201: AttendanceSerializer,
